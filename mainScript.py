@@ -8,6 +8,7 @@ from mainMenu import *
 #creating a screen for program
 screenSize = (1920/2, 1080/2);
 screen = pygame.display.set_mode(screenSize);
+pygame.display.set_caption("Simple PyGames by Faisal");
 screen.fill((255,255,255));
 
 
