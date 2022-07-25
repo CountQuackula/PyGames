@@ -1,7 +1,7 @@
 import sys, pygame, time
 pygame.init();
 
-def GUIcompFcn(width, height, x, y, gradient, colour, screen, direction, border, borderCol, borderThick):
+def GUIcompFcn(width, height, x, y, gradient, colour, screen, direction, border, borderCol, borderThick, blit):
     #converting some varaibles into integers incase of user error in calling function
     ratio = height/width;
     width = round(width);
@@ -31,10 +31,12 @@ def GUIcompFcn(width, height, x, y, gradient, colour, screen, direction, border,
             pygame.draw.rect(block, colour, (0, 0, width, height)); #add rectangle over whole surface and set colour
 
     #adding border to object if specified
-    if border == True:
+    if border == 1:
         pygame.draw.rect(block, borderCol, (0, 0, width, height), borderThick);
 
-    screen.blit(block, (x, y)); #adding block surface onto the screen at (x, y)
+    #checking if user wants current surface object blited onto screen
+    if blit == True:
+        screen.blit(block, (x, y)); #adding block surface onto the screen at (x, y)
 
     #returning the handle to the created component
     return block;

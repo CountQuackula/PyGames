@@ -5,9 +5,9 @@ from GUIcomponentFuncs import *
 
 def mainMenu(screen):
     #creating the 3 option buttons on screen
-    button1 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54, False, (255, 0, 255), screen, 1, True, (0, 0, 0), 4);
-    button2 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54 * 4, False, (0, 255, 255), screen, 1, True, (0, 0, 0), 4);
-    button3 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54 * 7, False, (255, 255, 0), screen, 1, True, (0, 0, 0), 4);
+    button1 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54, False, (255, 0, 255), screen, 1, True, (0, 0, 0), 4, 1);
+    button2 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54 * 4, False, (0, 255, 255), screen, 1, True, (0, 0, 0), 4, 1);
+    button3 = GUIcompFcn(1920/4, 54 * 2, 1920/8, 54 * 7, False, (255, 255, 0), screen, 1, True, (0, 0, 0), 4, 1);
 
     #initilizing list that stores the boundries of the buttons
     boundries = [];
@@ -39,9 +39,60 @@ def mainMenu(screen):
     screen.blit(text2, (boundries[1][0] + 144, boundries[1][2] + 27));
     screen.blit(text3, (boundries[2][0] + 144, boundries[2][2] + 27));
 
-    #checking pyGame for mouse or keyboard input to select an option or to close the game
+    #initlizing while loop pointer blocks and menu selected lists
+    pnt1 = GUIcompFcn(54, 13, boundries[0][0] - 67, boundries[0][3] - 60, False, (0, 0, 0), screen, 1, False, (0, 0, 0), 0, 1);
+    pnt2 = GUIcompFcn(54, 13, boundries[1][0] - 67, boundries[1][3] - 60, False, (0, 0, 0), screen, 1, False, (0, 0, 0), 0, 0);
+    pnt3 = GUIcompFcn(54, 13, boundries[2][0] - 67, boundries[2][3] - 60, False, (0, 0, 0), screen, 1, False, (0, 0, 0), 0, 0);
+    blankPnter = GUIcompFcn(54, 13, 0, 0, False, (255, 255, 255), screen, 1, False, (0, 0, 0), 0, 0);
+    pressedDown = (1, 2 , 0);
+    pressedUp = (2, 0, 1);
+    pnterPosition = 0;
 
+    #adding pointer positions to boundries
+    pnterPost = (boundries[0][0] - 13, boundries[0][3] - 54, boundries[1][0] - 13, boundries[1][3] - 54);
+    boundries.insert(4, pnterPost);
 
-    #updating screen to show the buttons added
+    #displaying initilial state of mainMenu before user input detection
     pygame.display.update();
+
+    #checking pyGame for mouse or keyboard input to select an option or to close the game
+    while True:
+        #clearing event stream to only get latest user input
+        pygame.event.clear;
+        pygame.event.wait;
+
+        for event in pygame.event.get():
+            #determining user input
+            if event.type == pygame.QUIT:
+                #closing GUI and terminating code
+                pygame.quit();
+                sys.exit();
+            elif event.type == pygame.KEYDOWN: #checking if it was a key being pressed down
+                if event.key == pygame.K_DOWN: #checking if down arrow key was pressed
+                    #bliting over old pnter
+                    screen.blit(blankPnter, (boundries[pnterPosition][0] - 67, boundries[pnterPosition][3] - 60));
+
+                    #changing selected option           
+                    pnterPosition = pressedDown[pnterPosition];
+                elif event.key == pygame.K_UP:
+                    #bliting over old pnter
+                    screen.blit(blankPnter, (boundries[pnterPosition][0] - 67, boundries[pnterPosition][3] - 60));
+
+                    #changing selected option
+                    pnterPosition = pressedUp[pnterPosition];
+                elif event.key == pygame.K_RETURN:
+                    return pnterPosition;
+
+            #updating screen if arrow keys pressed
+            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                #deteminig which pnter to apply to screen
+                if pnterPosition == 0:
+                    screen.blit(pnt1, (boundries[0][0] - 67, boundries[0][3] - 60));
+                elif pnterPosition == 1:
+                    screen.blit(pnt2, (boundries[1][0] - 67, boundries[1][3] - 60));
+                elif pnterPosition == 2:
+                    screen.blit(pnt3, (boundries[2][0] - 67, boundries[2][3] - 60));
+
+                #updating screen to show the new pnt position
+                pygame.display.update();
 

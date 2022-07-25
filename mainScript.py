@@ -13,5 +13,5 @@ screen.fill((255,255,255));
 
 
 #calling main menu to create it
-mainMenu(screen);
-time.sleep(5);
+selection = mainMenu(screen);
+print(selection);

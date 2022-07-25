@@ -26,7 +26,7 @@ position = (
 );
 
 for k in range(6):
-    block = GUIcompFcn(1920/6, 1080/4, position[k][0], position[k][1], True, colours[k], screen, 1, False, (0, 0, 0), 0);
+    block = GUIcompFcn(1920/6, 1080/4, position[k][0], position[k][1], True, colours[k], screen, 1, False, (0, 0, 0), 0, 0);
 
 #updating screen to show new added feature
 pygame.display.update(); #updates the new image into the gui needs to be done after setting up a new image
@@ -34,7 +34,7 @@ pygame.display.update(); #updates the new image into the gui needs to be done af
 time.sleep(10); #just pausing the ocde so the generated image can be appreciated
 
 for k in range(6):
-    blockTwo = GUIcompFcn(1920/12, 1080/2, k*1920/12, 0, True, colours[k], screen, -1, False, (0, 0, 0), 0);
+    blockTwo = GUIcompFcn(1920/12, 1080/2, k*1920/12, 0, True, colours[k], screen, -1, False, (0, 0, 0), 0, 0);
 
 #updating screen to show new added feature
 pygame.display.update(); #updates the new image into the gui needs to be done after setting up a new image
