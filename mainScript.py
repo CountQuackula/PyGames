@@ -19,7 +19,7 @@ textMainMenu = ["Tower Of Hanoi", "Kakuro", "KenKen"];
 selection.append(menuCreator(screen, 3, textMainMenu));
 print(selection);
 
-#
+#setting GUI heading to the users chosen game
 if selection[0] == 0:
     #calling Tower of Hanoi menu
     pygame.display.set_caption("Tower of Hanoi");
@@ -30,6 +30,23 @@ elif selection[0] == 2:
     #calling KenKen menu
     pygame.display.set_caption("KenKen");
 
-text = ["New Game", "Load Save", "Difficulty", "Video Settings"];
-selection.append(menuCreator(screen, 4, text));
-print(selection);
+#initilizing game difficulty and video settings to default states
+difficulty = 0;
+videoSettings = 1;
+selection.append(0);
+
+#awaiting user choice on game loading method
+while True:
+    #asking user to choose next step
+    text = ["New Game", "Load Save", "Difficulty", "Video Settings"];
+    selection[1] = (menuCreator(screen, 4, text));
+    print(selection);
+    
+    #loading difficulty or video settings menus for user to choose from
+    if selection[1] == 2:
+        difficulty = menuCreator(screen, 9, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    elif selection[1] == 3:
+        videoSettings = menuCreator(screen, 9, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    else:
+        break;
+
