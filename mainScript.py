@@ -18,7 +18,18 @@ textMainMenu = ["Tower Of Hanoi", "Kakuro", "KenKen"];
 selection = menuCreator(screen, 3, textMainMenu);
 print(selection);
 
-#calling KenKen menu
-text = ["1", "2", "3", "4"];
-selection = menuCreator(screen, 4, text);
-print(selection);
+if selection == 0:
+    #calling Tower of Hanoi menu
+    text = ["New Game", "Load Save", "Difficulty", "4"];
+    selection = menuCreator(screen, 4, text);
+    print(selection);
+elif selection == 1:
+    #calling Kakuro menu
+    text = ["1", "2", "3", "4"];
+    selection = menuCreator(screen, 4, text);
+    print(selection);
+elif selection == 2:
+    #calling KenKen menu
+    text = ["1", "2", "3", "4"];
+    selection = menuCreator(screen, 4, text);
+    print(selection);
