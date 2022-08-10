@@ -104,4 +104,3 @@ def menuCreator(screen, buttonCount, buttonTexts):
 
                 #updating screen to show the new pnt position
                 pygame.display.update();
-

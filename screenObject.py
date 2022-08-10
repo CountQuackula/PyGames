@@ -1,5 +1,5 @@
 from turtle import left
-import pygame, sys, json;
+import pygame, sys, json, random;
 from GUIcomponentFuncs import *;
 
 class screenButton:
@@ -14,7 +14,10 @@ class screenButton:
         self.bord = borderSize;
 
     def create(self):
-        self.object = GUIcompFcn(self.width, self.height, self.left, self.top, False, (255, 255, 255), self.scr, 1, True, (0, 0, 0), self.bord, 1);
+        col = [];
+        for i in range(3):
+            col.append(random.randint(25, 255))
+        self.object = GUIcompFcn(self.width, self.height, self.left, self.top, False, (col), self.scr, 1, True, (0, 0, 0), self.bord, True);
 
 #    def addTxt(self):
 #        self.object;

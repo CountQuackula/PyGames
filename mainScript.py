@@ -1,5 +1,5 @@
 #this is the main script where function calls and movement between menus will be determined
-import sys, pygame, json;
+import sys, pygame, json, time;
 pygame.init();
 from GUIcomponentFuncs import *;
 from menuCreator import *;
@@ -53,8 +53,9 @@ while True:
 
 #generating new game or loading save based off user decision
 if selection[0] == 0:
-    gameGrid = towHanoi(difficulty);
+    gameGrid = towHanoiCreate(difficulty, screen);
+    time.sleep(10);
 elif selection[0] == 1:
-    print("lmao")
+    gameGrid = kakuCreate(difficulty, screen);
 elif selection [0] == 2:
     print("1");
