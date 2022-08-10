@@ -1,9 +1,10 @@
 #this is the main script where function calls and movement between menus will be determined
-import sys, pygame, time
-from turtle import screensize;
+import sys, pygame, json;
 pygame.init();
-from GUIcomponentFuncs import *
-from menuCreator import *
+from GUIcomponentFuncs import *;
+from menuCreator import *;
+from gameCreate import *;
+from screenObject import *;
 
 #creating a screen for program
 screenSize = (1920/2, 1080/2);
@@ -31,22 +32,29 @@ elif selection[0] == 2:
     pygame.display.set_caption("KenKen");
 
 #initilizing game difficulty and video settings to default states
-difficulty = 0;
-videoSettings = 1;
+difficulty = 5;
+videoSettings = 5;
 selection.append(0);
 
 #awaiting user choice on game loading method
 while True:
     #asking user to choose next step
-    text = ["New Game", "Load Save", "Difficulty", "Video Settings"];
-    selection[1] = (menuCreator(screen, 4, text));
+    text = ["New Game", "Load Save", "Difficulty"];
+    selection[1] = (menuCreator(screen, 3, text));
     print(selection);
     
     #loading difficulty or video settings menus for user to choose from
     if selection[1] == 2:
-        difficulty = menuCreator(screen, 9, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+        difficulty = menuCreator(screen, 9, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]) + 1;
     elif selection[1] == 3:
         videoSettings = menuCreator(screen, 9, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
     else:
         break;
 
+#generating new game or loading save based off user decision
+if selection[0] == 0:
+    gameGrid = towHanoi(difficulty);
+elif selection[0] == 1:
+    print("lmao")
+elif selection [0] == 2:
+    print("1");
