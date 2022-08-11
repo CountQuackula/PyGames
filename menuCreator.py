@@ -96,6 +96,8 @@ def menuCreator(screen, buttonCount, buttonTexts):
                     pnterPosition = pressedUp[pnterPosition];
                 elif event.key == pygame.K_RETURN:
                     return pnterPosition;
+                elif event.key == pygame.K_ESCAPE:
+                    return pygame.K_ESCAPE;
 
             #updating screen if arrow keys pressed
             if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:

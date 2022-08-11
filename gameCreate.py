@@ -25,7 +25,6 @@ def towHanoiCreate(difficulty, screen):
 
     temp = [10, 10, 10];
     tempArray.append(temp);
-    print(tempArray);
     
     #adding created array layer to final return array
     gameGrid.append(tempArray);
@@ -57,6 +56,7 @@ def towHanoiCreate(difficulty, screen):
 
 def kakuCreate(difficulty, screen):
     print("in development");
+    
 
 def kenkenCreate(difficulty, screen):
     print("in development");
