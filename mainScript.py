@@ -1,5 +1,4 @@
 #this is the main script where function calls and movement between menus will be determined
-from statistics import harmonic_mean
 import sys, pygame, json, time;
 pygame.init();
 from GUIcomponentFuncs import *;
@@ -42,6 +41,7 @@ while True:
     #initilizing game difficulty and chosen game to default states
     difficulty = 5;
     selection[1] = 0;
+    gameGrid = [];
 
     #awaiting user choice on game loading method
     while True:
@@ -63,7 +63,18 @@ while True:
         #loading up old game saves
         elif selection[1] == 1:
             if selection[0] == 0:
-                print("load hanoi");
+                gameGrid = [];
+                #load saved info into program
+                fp = open("hanoiSave.json", "r");
+                saveDetails = json.load(fp);
+                difficulty = saveDetails[0];
+                gameGrid.append(saveDetails[1]);
+                fp.close();
+                print("loaded hanoi");
+
+                #create new object array using info from json file
+                gameGrid[1] = hanoiLoad(gameGrid, screen, difficulty);
+                playHanoi(difficulty, gameGrid, screen);
             elif selection[0] == 1:
                 print("load kakuro");
             elif selection[0] == 2:

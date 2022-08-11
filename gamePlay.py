@@ -64,7 +64,7 @@ def playHanoi(difficulty, gameGrid, screen):
                             screen.blit(pntr, (192 * (currCol + 1.25), 3*0.125*540/(difficulty + 3)));
                             pygame.display.update();
                             break;
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT and (gameGrid[0][0][left[currCol]] == 0 or picked == 0):
                     screen.blit(blankPntr, (192 * (currCol + 1.25), 3*0.125*540/(difficulty + 3)));
                     currCol = left[currCol];
 
@@ -83,7 +83,7 @@ def playHanoi(difficulty, gameGrid, screen):
                     
                     screen.blit(pntr, (192 * (currCol + 1.25), 3*0.125*540/(difficulty + 3)));
                     pygame.display.update();
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT and (gameGrid[0][0][right[currCol]] == 0 or picked == 0):
                     screen.blit(blankPntr, (192 * (currCol + 1.25), 3*0.125*540/(difficulty + 3)));
                     currCol = right[currCol];
 
@@ -102,9 +102,13 @@ def playHanoi(difficulty, gameGrid, screen):
                     
                     screen.blit(pntr, (192 * (currCol + 1.25), 3*0.125*540/(difficulty + 3)));
                     pygame.display.update();
-                elif event.key == pygame.K_ESCAPE or event.key == pygame.K_s:
-                    #save(gameGrid->Hanoi.json);
-                    print("save file");
+                elif event.key == pygame.K_ESCAPE:
+                    return;
+                elif event.key == pygame.K_s:
+                    fp = open("hanoiSave.json", "w+");
+                    json.dump([difficulty, gameGrid[0]], fp);
+                    fp.close();
+                    print("saved file");
                     return;
 
         for i in range(difficulty):

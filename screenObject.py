@@ -1,4 +1,3 @@
-from turtle import left
 import pygame, sys, json, random;
 from GUIcomponentFuncs import *;
 from gameLoad import *;
