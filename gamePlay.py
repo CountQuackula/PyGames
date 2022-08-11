@@ -14,6 +14,7 @@ def playHanoi(difficulty, gameGrid):
     while True:
         pygame.event.clear;
         pygame.event.wait;
+        sum = 0;
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -32,7 +33,7 @@ def playHanoi(difficulty, gameGrid):
                             gameGrid[0][i][currCol] = 0;
 
                             #visually moving the object to the top row
-                            tempObj.move(192 * (1.5 + currCol), 0.5*540/(difficulty + 3));
+                            tempObj.move(192 * (1.5 + currCol), 1.5*540/(difficulty + 3));
                             picked = 1;
                             break;
                 elif event.key == pygame.K_RETURN and picked == 1:
@@ -53,6 +54,12 @@ def playHanoi(difficulty, gameGrid):
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit;
                     sys.exit();
+
+        for i in range(difficulty):
+            sum += gameGrid[0][i + 1][2];
+        
+        if sum == difficulty*(difficulty + 1)/2:
+            print("Win");
 
 
 def playKakuro(difficulty, screen, gameGrid):
