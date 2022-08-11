@@ -39,7 +39,7 @@ def towHanoiCreate(difficulty, screen):
     for i in range(difficulty + 1):
         for j in range(3):
             if gameGrid[0][i][j] != 0:
-                tempObj = screenButton(192*1.5 - (i*96)/difficulty, (i*192)/difficulty, 540/(difficulty+3) * (i + 1), 540/(difficulty + 3), str(gameGrid[0][i][j]), "", 2, screen);
+                tempObj = screenButton(192*1.5 - (i*96)/difficulty, (i*192)/difficulty, 540/(difficulty+3) * (i + 1), 540/(difficulty + 3), str(gameGrid[0][i][j]), "", 2, screen, difficulty);
                 tempObj.create();
                 temp.append(tempObj);
             else:

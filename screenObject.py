@@ -4,7 +4,7 @@ from GUIcomponentFuncs import *;
 from gameLoad import *;
 
 class screenButton:
-    def __init__(self, leftEdge, width, topEdge, height, leftText, rightText, borderSize, screen):
+    def __init__(self, leftEdge, width, topEdge, height, leftText, rightText, borderSize, screen, difficulty):
         self.top = topEdge;
         self.height = height;
         self.left = leftEdge;
@@ -13,6 +13,7 @@ class screenButton:
         self.rightTxt = rightText;
         self.scr = screen;
         self.bord = borderSize;
+        self.diff = difficulty;
 
     def create(self):
         col = [];
@@ -24,16 +25,16 @@ class screenButton:
 #    def addTxt(self):
 #        self.object;
     
-    def move(self, x, y):
+    def move(self, x, y, gameGrid):
         #covering over previous button location to avoid issues
-        cover = pygame.surface.Surface((self.width + 1, self.height + 0.5));
-        pygame.draw.rect(cover, (255, 255, 255), (0, 0, self.width + 1, self.height));
-        self.scr.blit(cover, (self.left, self.top));
+        cover = pygame.surface.Surface((960, 540));
+        pygame.draw.rect(cover, (255, 255, 255), (0, 0, 960, 540));
+        self.scr.blit(cover, (0, 0));
 
         #creating new position for button
         self.left = x - 0.5*self.width;
         self.top = y - 0.5*self.height;
-        self.scr.blit(self.object, (self.left, self.top));
+        drawHanoi(self.scr, self.diff, gameGrid);
         pygame.display.update();
 
     def border(self, bordSiz):
