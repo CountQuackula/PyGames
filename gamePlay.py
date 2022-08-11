@@ -58,8 +58,32 @@ def playHanoi(difficulty, gameGrid):
                             break;
                 elif event.key == pygame.K_LEFT:
                     currCol = left[currCol];
+                    if picked == 1:
+                        #setting new values for old location of button
+                        gameGrid[0][tempRow][tempCol] = 0;
+                        gameGrid[1][tempRow][tempCol] = 0;
+
+                        tempCol = currCol;
+
+                        gameGrid[0][tempRow][tempCol] = tempNum;
+                        gameGrid[1][tempRow][tempCol] = tempObj;
+
+                        tempObj.move(192 * (1.5 + currCol), 1.5*540/(difficulty + 3), gameGrid);
                 elif event.key == pygame.K_RIGHT:
                     currCol = right[currCol];
+
+                    if picked == 1:
+                        #setting new values for old location of button
+                        gameGrid[0][tempRow][tempCol] = 0;
+                        gameGrid[1][tempRow][tempCol] = 0;
+
+                        tempCol = currCol;
+
+                        gameGrid[0][tempRow][tempCol] = tempNum;
+                        gameGrid[1][tempRow][tempCol] = tempObj;
+
+                        tempObj.move(192 * (1.5 + currCol), 1.5*540/(difficulty + 3), gameGrid);
+
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit;
                     sys.exit();
