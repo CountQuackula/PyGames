@@ -5,6 +5,7 @@ from GUIcomponentFuncs import *;
 from menuCreator import *;
 from gameCreate import *;
 from screenObject import *;
+from gamePlay import *;
 
 #creating a screen for program
 screenSize = (1920/2, 1080/2);
@@ -18,7 +19,6 @@ selection = [];
 #calling main menu to create it
 textMainMenu = ["Tower Of Hanoi", "Kakuro", "KenKen"];
 selection.append(menuCreator(screen, 3, textMainMenu));
-print(selection);
 
 #setting GUI heading to the users chosen game
 if selection[0] == 0:
@@ -41,7 +41,6 @@ while True:
     #asking user to choose next step
     text = ["New Game", "Load Save", "Difficulty"];
     selection[1] = (menuCreator(screen, 3, text));
-    print(selection);
     
     #loading difficulty or video settings menus for user to choose from
     if selection[1] == 2:
@@ -54,8 +53,13 @@ while True:
 #generating new game or loading save based off user decision
 if selection[0] == 0:
     gameGrid = towHanoiCreate(difficulty, screen);
-    time.sleep(10);
+    
+    playHanoi(difficulty, gameGrid);
 elif selection[0] == 1:
     gameGrid = kakuCreate(difficulty, screen);
+    time.sleep(5);
+    playKakuro(difficulty, screen, gameGrid);
 elif selection [0] == 2:
-    print("1");
+    gameGrid = kenkenCreate(difficulty, screen);
+    time.sleep(5);
+    playKenKen(difficulty, screen, gameGrid);

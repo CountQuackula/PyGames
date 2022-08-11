@@ -23,10 +23,12 @@ def towHanoiCreate(difficulty, screen):
 
         tempArray.append(temp);
 
+    temp = [10, 10, 10];
+    tempArray.append(temp);
+    print(tempArray);
+    
     #adding created array layer to final return array
     gameGrid.append(tempArray);
-    #for checking array generating as desired
-    print(gameGrid);
 
     #resetting temp variables to store screen objects instead
     temp = [];
@@ -37,11 +39,11 @@ def towHanoiCreate(difficulty, screen):
     for i in range(difficulty + 1):
         for j in range(3):
             if gameGrid[0][i][j] != 0:
-                tempObj = screenButton(192*1.5 - (i*96)/difficulty, (i*192)/difficulty, 540/(difficulty+2) * i, 540/(difficulty + 2), str(gameGrid[0][i][j]), "", 4, screen);
+                tempObj = screenButton(192*1.5 - (i*96)/difficulty, (i*192)/difficulty, 540/(difficulty+3) * (i + 1), 540/(difficulty + 3), str(gameGrid[0][i][j]), "", 2, screen);
                 tempObj.create();
                 temp.append(tempObj);
             else:
-                temp.append(0);
+                temp.append(10);
         tempArray.append(temp);
         temp = [];
     
@@ -53,5 +55,8 @@ def towHanoiCreate(difficulty, screen):
 
     return gameGrid;
 
-def kakuCreate():
+def kakuCreate(difficulty, screen):
+    print("in development");
+
+def kenkenCreate(difficulty, screen):
     print("in development");
