@@ -1,3 +1,4 @@
+from random import randint, randrange
 import pygame, sys, json, time;
 from screenObject import *;
 from GUIcomponentFuncs import *;
@@ -63,6 +64,38 @@ def hanoiLoad(gameGrid, screen, difficulty):
 
 def kakuCreate(difficulty, screen):
     print("in development");
+    gameGrid = [];
+    temp = [];
+    tempArr = [];
+
+    #creating empty matrix of 0 to allow easier coding of asigning values
+    for i in range(difficulty + 1):
+        for j in range(difficulty + 1):
+            temp.append(point())
+        tempArr.append(temp);
+        temp = [];
+    gameGrid.append(tempArr);
+
+    #assigning values to gameGrid entries
+    for i in range(difficulty + 1):
+        if (i % 3 == 0):
+            print("");
+        else:
+            for j in range(difficulty + 1):
+                temp2 = [point()];
+                temp2_5 = list(range(1, 10));
+                random.shuffle(temp2_5);
+                temp2.append(temp2_5);
+                gameGrid[i] = temp2;
+            print("");
+
+    gameGrid.append(loadKaku(gameGrid, screen, difficulty));
+
+    return gameGrid;
+
+def loadKaku(gameGrid, screen, difficulty):
+
+    return gameGrid[1];
 
 
 def kenkenCreate(difficulty, screen):

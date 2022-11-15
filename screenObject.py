@@ -39,3 +39,12 @@ class screenButton:
     def border(self, bordSiz):
         self.bord = bordSiz;
         self.object = self.create(self);
+
+class point:
+    def __init__(self):
+        self.x = 0;
+        self.y = 0;
+    def changeX(self, xNew):
+        self.x = xNew;
+    def changeY(self, yNew):
+        self.y = yNew;
