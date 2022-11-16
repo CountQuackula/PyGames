@@ -1,4 +1,5 @@
 import sys, pygame, time
+from tkinter import W
 pygame.init();
 
 def GUIcompFcn(width, height, x, y, gradient, colour, screen, direction, border, borderCol, borderThick, blit):
@@ -27,6 +28,11 @@ def GUIcompFcn(width, height, x, y, gradient, colour, screen, direction, border,
                 thirCol = 160*((ratio*i)+j)/(2*height);
                 col = (firCol, secCol, thirCol);
                 pygame.draw.rect(block, (col[colour[0] - 1], col[colour[1] - 1], col[colour[2] - 1]), (i, j, 1, 1));
+    elif gradient == False and direction == 0:
+        for i in range(width):
+            for j in range(height):
+                if i == j:
+                    pygame.draw.rect(block, (0, 0, 0), (i, j, 1, 1));
     elif gradient == False:
             pygame.draw.rect(block, colour, (0, 0, width, height)); #add rectangle over whole surface and set colour
 

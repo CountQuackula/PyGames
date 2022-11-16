@@ -1,3 +1,4 @@
+from pickle import TRUE
 import pygame, sys, json, random;
 from GUIcomponentFuncs import *;
 from gameLoad import *;
@@ -13,6 +14,7 @@ class screenButton:
         self.scr = screen;
         self.bord = borderSize;
         self.diff = difficulty;
+        self.dir = 1;
 
     def create(self):
         col = [];
@@ -20,6 +22,12 @@ class screenButton:
             col.append(random.randint(25, 255));
         
         self.object = GUIcompFcn(self.width, self.height, self.left, self.top, False, (col), self.scr, 1, True, (0, 0, 0), self.bord, True);
+
+    def setDir(self, direction):
+        self.dir = direction;
+
+    def createK(self):
+        self.object = GUIcompFcn(self.width, self.height, self.left, self.top, False, (255, 255, 255), self.scr, self.dir, self.bord, (0, 0, 0), 3, True);
 
 #    def addTxt(self):
 #        self.object;
@@ -48,3 +56,7 @@ class point:
         self.x = xNew;
     def changeY(self, yNew):
         self.y = yNew;
+    def x(self):
+        return self.x;
+    def y(self):
+        return self.y;

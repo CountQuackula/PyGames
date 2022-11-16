@@ -1,7 +1,9 @@
 from random import randint, randrange
+from tempfile import TemporaryDirectory
 import pygame, sys, json, time;
 from screenObject import *;
 from GUIcomponentFuncs import *;
+from itertools import permutations;
 
 def towHanoiCreate(difficulty, screen):
     #initilizing temp lists and return list
@@ -41,6 +43,7 @@ def hanoiLoad(gameGrid, screen, difficulty):
     pygame.draw.rect(cover, (255, 255, 255), (0, 0, 960, 540));
     screen.blit(cover, (0, 0));
 
+    #creating second matrix layer with blocks in place using first layer
     tempArray = [];
     temp = [];
     tempObj = 0;
@@ -56,11 +59,11 @@ def hanoiLoad(gameGrid, screen, difficulty):
         temp = [];
     
     #adding temp list to second third dimension of game space
-    gameGrid.append(tempArray);
+    #gameGrid.append(tempArray);
 
     pygame.display.update();
 
-    return gameGrid[1];
+    return tempArray;
 
 def kakuCreate(difficulty, screen):
     print("in development");
@@ -71,22 +74,54 @@ def kakuCreate(difficulty, screen):
     #creating empty matrix of 0 to allow easier coding of asigning values
     for i in range(difficulty + 1):
         for j in range(difficulty + 1):
-            temp.append(point())
+            if (i == 0 or j == 0):
+                temp.append(point());
+            elif (i % 4 == 0 and j % 4 == 0):
+                temp.append(point());
+            else:
+                temp.append(point());
+                temp[j].changeY(-1);
         tempArr.append(temp);
         temp = [];
+
+    #add the zeroed points to gameGrid as its first matrix layer
     gameGrid.append(tempArr);
 
+    #creating all the permutations of required numbers
+    l = list(permutations(range(1, difficulty + 1)));
+    temp = [];
+
+    #selecting a subset of permutations that make a valid matrix
+    for i in range(difficulty):
+        #selecting new random permutated row
+        row = randint(0,len(l));
+        rows = len(l);
+        temp.append(l[row]);
+
+        #removing each remaining permutated row that has a matching column entry
+        for j in range(rows):
+            for idx, (x, y) in enumerate(zip(temp[i], l[rows - 1 - j])):
+                if x == y:
+                    l.pop(rows - 1 - j);
+                    break;
+
     #assigning values to gameGrid entries
+    for i in range(difficulty):
+        for j in range(difficulty):
+            if (i % 4 == 0 and j % 4 == 0):
+                gameGrid[i + 1][j + 1];
+            else:
+                gameGrid[i + 1][j + 1].changeX(temp[i][j]);
+    
+    #adding values for clues in game to appripriate entries
     for i in range(difficulty + 1):
-        if (i % 3 == 0):
-            print("");
-        else:
-            for j in range(difficulty + 1):
-                temp2 = [point()];
-                temp2_5 = list(range(1, 10));
-                random.shuffle(temp2_5);
-                temp2.append(temp2_5);
-                gameGrid[i] = temp2;
+        for j in range(difficulty + 1):
+            if (i == 0):
+                gameGrid[i][j];
+            elif (j == 0):
+                gameGrid[i][j];
+            elif (i % 4 == 0 and j % 4 == 0):
+                gameGrid[i][j];
             print("");
 
     gameGrid.append(loadKaku(gameGrid, screen, difficulty));
@@ -94,8 +129,30 @@ def kakuCreate(difficulty, screen):
     return gameGrid;
 
 def loadKaku(gameGrid, screen, difficulty):
+    #covering over previous GUI screen to ensure no overlap between displays
+    cover = pygame.surface.Surface((960, 540));
+    pygame.draw.rect(cover, (255, 255, 255), (0, 0, 960, 540));
+    screen.blit(cover, (0, 0));
 
-    return gameGrid[1];
+    #
+    temp = [];
+    tempArray = [];
+    tempObj = 0;
+    for i in range(difficulty + 1):
+        for j in range(difficulty + 1):
+            if gameGrid[i][j].y() != -1:
+                tempObj = screenButton(210 + (i*540/(difficulty + 1)), 540/(difficulty + 1), j*(540/(difficulty + 1)), 540/(difficulty + 1), str(gameGrid[i][j].x()), str(gameGrid[i][j].y()), 3, screen, difficulty);
+                tempObj.setDir(0);
+                tempObj.createK();
+            else:
+                tempObj = screenButton(210 + (i*540/(difficulty + 1)), 540/(difficulty + 1), j*(540/(difficulty + 1)), 540/(difficulty + 1), "", "", 3, screen, difficulty);
+                tempObj.createK();
+
+            temp.append(tempObj);
+        tempArray.append(temp);
+        temp = [];
+
+    return tempArray;
 
 
 def kenkenCreate(difficulty, screen):

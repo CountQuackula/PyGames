@@ -41,13 +41,13 @@ while True:
     #initilizing game difficulty and chosen game to default states
     difficulty = 5;
     selection[1] = 0;
-    gameGrid = [];
 
     #awaiting user choice on game loading method
     while True:
         #asking user to choose next step
         text = ["New Game", "Load Save", "Difficulty", "Back to Game Select"];
         selection[1] = (menuCreator(screen, 4, text));
+        gameGrid = [];
 
         #generating new game or loading save based off user decision
         if selection[1] == 0:
@@ -73,7 +73,7 @@ while True:
                 print("loaded hanoi");
 
                 #create new object array using info from json file
-                gameGrid[1] = hanoiLoad(gameGrid, screen, difficulty);
+                gameGrid.append(hanoiLoad(gameGrid, screen, difficulty));
                 playHanoi(difficulty, gameGrid, screen);
             elif selection[0] == 1:
                 print("load kakuro");
