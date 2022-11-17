@@ -1,3 +1,4 @@
+from decimal import ROUND_FLOOR
 from random import randint, randrange
 from tempfile import TemporaryDirectory
 import pygame, sys, json, time;
@@ -71,7 +72,7 @@ def kakuCreate(difficulty, screen):
     temp = [];
     tempArr = [];
 
-    #creating empty matrix of 0 to allow easier coding of asigning values
+    #creating empty matrix of 0 to allow easier coding of asigning values and identifying guess square with a -1 in y coord
     for i in range(difficulty + 1):
         for j in range(difficulty + 1):
             if (i == 0 or j == 0):
@@ -87,42 +88,60 @@ def kakuCreate(difficulty, screen):
     #add the zeroed points to gameGrid as its first matrix layer
     gameGrid.append(tempArr);
 
-    #creating all the permutations of required numbers
-    l = list(permutations(range(1, difficulty + 1)));
-    temp = [];
+    #creating a random permutation of the required values
+    tempArr = list(range(1, difficulty + 1));
+    random.shuffle(tempArr);
 
-    #selecting a subset of permutations that make a valid matrix
-    for i in range(difficulty):
-        #selecting new random permutated row
-        row = randint(0,len(l));
-        rows = len(l);
-        temp.append(l[row]);
-
-        #removing each remaining permutated row that has a matching column entry
-        for j in range(rows):
-            for idx, (x, y) in enumerate(zip(temp[i], l[rows - 1 - j])):
-                if x == y:
-                    l.pop(rows - 1 - j);
-                    break;
-
-    #assigning values to gameGrid entries
+    #copying randomly generated values into gameGrid
     for i in range(difficulty):
         for j in range(difficulty):
-            if (i % 4 == 0 and j % 4 == 0):
-                gameGrid[i + 1][j + 1];
-            else:
-                gameGrid[i + 1][j + 1].changeX(temp[i][j]);
+            gameGrid[i + 1][j + 1].changeX(tempArr[(j + i) % 9]);
     
     #adding values for clues in game to appripriate entries
+    temp = [];
+    sum = 0;
+    #initilizing temp array to all 0 values
+    for i in range(difficulty):
+        temp.append(0);
+    #filling left and top border clue y and x values respectively
     for i in range(difficulty + 1):
         for j in range(difficulty + 1):
-            if (i == 0):
-                gameGrid[i][j];
-            elif (j == 0):
-                gameGrid[i][j];
-            elif (i % 4 == 0 and j % 4 == 0):
-                gameGrid[i][j];
-            print("");
+            #calculate value for left border clue in this row
+            sum += gameGrid[i][j].x();
+            #add this rows clue value to the column total
+            temp[j] += gameGrid[i][j].x();
+        gameGrid[i][0].changeY(sum);
+        sum = 0;
+    
+    #store column totals into clue boxes in top edge x
+    for i in range(difficulty + 1):
+        gameGrid[0][i].changeX(temp[i]);
+    
+    #go through each middle clue in grid and calculate its clue nad total values
+    ratio = ROUND_FLOOR((difficulty+1)/4);
+    for i in range(ratio):
+        for j in range(ratio):
+            if (i != 0 or j != 0):
+                if (i == 0):
+                    sum = 0;
+                    for k in range(3):
+                        sum += gameGrid[4*i + k + 1][4*j].x();
+                    gameGrid[4*i][4*j].changeX(sum);
+                elif (j == 0):
+                    sum = 0;
+                    for k in range(3):
+                        sum += gameGrid[4*i][4*j + k + 1].x();
+                    gameGrid[4*i][4*j].changeY(sum);
+                else:
+                    #case where box needs both vertical and horizontal
+                    sum = 0;
+                    for k in range(3):
+                        sum += gameGrid[4*i + k + 1][4*j].x();
+                    gameGrid[4*i][4*j].changeX(sum);
+                    sum = 0;
+                    for k in range(3):
+                        sum += gameGrid[4*i][4*j + k + 1].x();
+                    gameGrid[4*i][4*j].changeY(sum);
 
     gameGrid.append(loadKaku(gameGrid, screen, difficulty));
 
