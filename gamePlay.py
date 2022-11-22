@@ -17,8 +17,8 @@ def playHanoi(difficulty, gameGrid, screen):
     blankPntr = GUIcompFcn(0.5*192, 0.25*540/(difficulty + 3), 192*1.25, 3*0.125*540/(difficulty + 3), False, (255, 255, 255), screen, 1, 0, (0, 0, 0), 0, False);
     pygame.display.update();
     while True:
-        pygame.event.clear;
-        pygame.event.wait;
+        pygame.event.clear();
+        pygame.event.wait();
         sum = 0;
 
         for event in pygame.event.get():
@@ -125,6 +125,18 @@ def playHanoi(difficulty, gameGrid, screen):
 
 
 def playKakuro(difficulty, screen, gameGrid):
+    temp = point();
+    pntr = GUIcompFcn(540/(difficulty + 1), 540/(difficulty + 1), 210 + 540/(difficulty + 1), 540/(difficulty + 1), False, (1, 2, 3), screen, -1, 1, (0, 0, 0), 3, True);
+    pygame.display.update();
+    while True:
+        pygame.event.clear();
+        pygame.event.wait();
+
+        for event in pygame.event.get():
+            print();
+
+        print();
+        break;
     print("in development");
 
 def playKenKen(difficulty, screen, gameGrid):

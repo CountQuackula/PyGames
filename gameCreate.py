@@ -171,6 +171,8 @@ def loadKaku(gameGrid, screen, difficulty):
         tempArray.append(temp);
         temp = [];
 
+    pygame.display.update();
+
     return tempArray;
 
 
